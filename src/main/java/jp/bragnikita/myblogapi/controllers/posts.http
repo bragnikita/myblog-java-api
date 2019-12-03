@@ -1,0 +1,27 @@
+GET http://localhost:8080/posts/6
+Accept: application/json
+
+###
+
+POST http://localhost:8080/posts/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Post 1", "content": "Post 1 content"
+}
+
+###
+
+POST http://localhost:8080/resources/images/post/1
+Accept: application/json
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="vlcsnap-2019-11-03-15h09m48s852.png"
+Content-Type: image/jpeg
+
+< /Users/nikita/Pictures/vlcsnap-2019-11-03-15h09m48s852.png
+--WebAppBoundary--
+###
+
