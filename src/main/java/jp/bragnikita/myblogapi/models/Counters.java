@@ -39,7 +39,7 @@ public class Counters {
         return this.getNextLong("albums");
     }
 
-    public long getNextLong(String seqName) {
+    private long getNextLong(String seqName) {
         MongoSequence nextState = mongoTemplate
                 .findAndModify(this.byName(seqName),
                         new Update().inc("nextLong", 1L), MongoSequence.class);
@@ -68,13 +68,13 @@ public class Counters {
     @Document(collection = "seq")
     public static class MongoSequence {
 
-        public MongoSequence(@Value("#root._id") String id) {
+        MongoSequence(@Value("#root._id") String id) {
             this.name = id;
         }
 
         @Id
-        public String name;
+        String name;
         @Field("nextLong")
-        public Long nextValLong;
+        Long nextValLong;
     }
 }

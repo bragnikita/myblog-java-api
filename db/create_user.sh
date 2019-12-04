@@ -1,0 +1,1 @@
+mongo --quiet --eval "var user='blog', pwd='password', database='myblog'" ./create_user.js

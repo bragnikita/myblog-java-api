@@ -1,38 +1,36 @@
 package jp.bragnikita.myblogapi.models;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 @Document(collection = "posts")
-public class Post {
+public class Post implements CanSetModifiedAt {
 
     @Id
     private Long id;
-
     private String title;
-
     private String textContent;
-
-    private Types.ImageRef cover;
-
+    private ModelObjectRefs.ImageRef cover;
     @Field(targetType = FieldType.STRING)
     private PostVisibility visibility;
     @Field(targetType = FieldType.STRING)
     private PostStatus status;
+    private String postType;
+    private String slug;
+    private String textContentType;
+    private boolean canBeListed = false;
+    private String author;
+    private String[] categories = new String[]{};
+    private AttributeType[] attributes = new AttributeType[]{};
+    private Date createdAt = new Date();
+    private Date publishedAt;
+    private Date modifiedAt;
 
-    private Date created;
-
-    private Date published;
-
-    private Date modified;
 
     public enum PostStatus {
         DRAFT,
@@ -45,13 +43,13 @@ public class Post {
         RESTRICTED,
     }
 
-
-
     public Post(@Value("#root._id") Long id) {
         this.id = id;
     }
 
-
+    /**
+     * Getters and Setters
+     **/
     public Long getId() {
         return id;
     }
@@ -72,11 +70,11 @@ public class Post {
         this.textContent = textContent;
     }
 
-    public Types.ImageRef getCover() {
+    public ModelObjectRefs.ImageRef getCover() {
         return cover;
     }
 
-    public void setCover(Types.ImageRef cover) {
+    public void setCover(ModelObjectRefs.ImageRef cover) {
         this.cover = cover;
     }
 
@@ -96,28 +94,84 @@ public class Post {
         this.status = status;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Date getPublished() {
-        return published;
+    public Date getPublishedAt() {
+        return publishedAt;
     }
 
-    public void setPublished(Date published) {
-        this.published = published;
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
-    public Date getModified() {
-        return modified;
+    public Date getModifiedAt() {
+        return modifiedAt;
     }
 
-    public void setModified(Date modified) {
-        this.modified = modified;
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
+
+    public void setPostType(String postType) {
+        this.postType = postType;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getTextContentType() {
+        return textContentType;
+    }
+
+    public void setTextContentType(String textContentType) {
+        this.textContentType = textContentType;
+    }
+
+    public boolean isCanBeListed() {
+        return canBeListed;
+    }
+
+    public void setCanBeListed(boolean canBeListed) {
+        this.canBeListed = canBeListed;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String[] getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String[] categories) {
+        this.categories = categories;
+    }
+
+    public AttributeType[] getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(AttributeType[] attributes) {
+        this.attributes = attributes;
     }
 
 }

@@ -2,13 +2,11 @@ package jp.bragnikita.myblogapi.services;
 
 import jp.bragnikita.myblogapi.models.Counters;
 import jp.bragnikita.myblogapi.models.Post;
-import jp.bragnikita.myblogapi.models.Types;
+import jp.bragnikita.myblogapi.models.ModelObjectRefs;
 import jp.bragnikita.myblogapi.repos.PostsRepo;
 import jp.bragnikita.myblogapi.utils.AppExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Random;
 
 @Service
 public class PostsOperations {
@@ -29,8 +27,8 @@ public class PostsOperations {
         p.setTextContent(params.textContent);
         p.setVisibility(Post.PostVisibility.PRIVATE);
         p.setStatus(Post.PostStatus.DRAFT);
-        p.setCover(new Types.ImageRef());
-        p.getCover().url = params.coverRef;
+        p.setCover(new ModelObjectRefs.ImageRef());
+        p.getCover().locator = params.coverRef;
         return repo.save(p);
     }
     public Post update(Long id, UpdatePostParams params) {
